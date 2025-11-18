@@ -206,7 +206,7 @@ Transform:
   m_GameObject: {fileID: 313846503}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 278, y: 0.9, z: 729.95}
+  m_LocalPosition: {x: 278, y: 0.85, z: 729.95}
   m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -222,7 +222,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 313846503}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 3
   m_Drag: 2
   m_AngularDrag: 2
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -255,7 +255,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.7
   groundDrag: 13
-  playerHeight: 6
+  jumpForce: 13
+  jumpCooldown: 0.3
+  airMultiplier: 0.3
+  playerHeight: 2
   whatIsGround:
     serializedVersion: 2
     m_Bits: 1024
