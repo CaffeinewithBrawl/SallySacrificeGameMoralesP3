@@ -11,7 +11,7 @@ public class PlayerCtrl : MonoBehaviour
     public float airMultiplier;
     bool readyToJump = true;
 
-    public float playerHeight;
+    float playerHeight = 2f;
     public LayerMask whatIsGround;
     bool grounded;
 
@@ -37,14 +37,15 @@ public class PlayerCtrl : MonoBehaviour
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.2f, whatIsGround);
 
         MyInput();
+        SpeedControl();
 
         if (grounded)
         {
             rb.linearDamping = groundDrag;
         }
-        else
+        else if (!grounded)
         {
-            rb.linearDamping = 8;
+            rb.linearDamping = 0;
         }
     }
 
@@ -75,11 +76,22 @@ public class PlayerCtrl : MonoBehaviour
 
         if (grounded)
         {
-            rb.AddForce(moveDirection.normalized * speed * 10f, ForceMode.Impulse);
+            rb.AddForce(moveDirection.normalized * speed * 10f, ForceMode.Force);
         }
         else if (!grounded)
         {
-            rb.AddForce(moveDirection.normalized * speed * 10f * airMultiplier, ForceMode.Impulse);
+            rb.AddForce(moveDirection.normalized * speed * 10f * airMultiplier, ForceMode.Force);
+        }
+    }
+
+    private void SpeedControl()
+    {
+        Vector3 flatVel = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
+
+        if (flatVel.magnitude > speed)
+        {
+            Vector3 limitedVel = flatVel.normalized * speed;
+            rb.linearVelocity = new Vector3(limitedVel.x, rb.linearVelocity.y, limitedVel.z);
         }
     }
 
